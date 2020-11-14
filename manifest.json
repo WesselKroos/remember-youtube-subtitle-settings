@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "YouTube Subtitle",
+  "description": "Manage YouTube subtitles",
+  "version": "1.0.0",
+  "author": "Wessel Kroos",
+  "icons": {
+    "16": "images/icon-16.png",
+    "32": "images/icon-32.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
+  },
+  "browser_action": {
+    "default_icon": "images/icon-19.png",
+    "default_popup": "options.html"
+  },
+  "content_scripts": [{
+    "matches": ["https://www.youtube.com/*"],
+    "js": ["scriptinjector.js"]
+  }],
+  "web_accessible_resources": [
+    "contentscript.js"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": false
+  },
+  "permissions": [
+    "https://www.youtube.com/*"
+  ]
+}
