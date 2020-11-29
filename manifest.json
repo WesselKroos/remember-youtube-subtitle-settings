@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "YouTube Subtitle",
-  "description": "Manage YouTube subtitles",
+  "name": "Remember YouTube subtitle settings",
+  "description": "Set and forget. No need to re-select your subtitle language anymore.",
   "version": "1.0.0",
   "author": "Wessel Kroos",
   "icons": {
@@ -14,18 +14,24 @@
     "default_icon": "images/icon-19.png",
     "default_popup": "options.html"
   },
+  "background" : {
+    "scripts" : ["scripts/background.js"],
+    "persistent": false
+  },
   "content_scripts": [{
     "matches": ["https://www.youtube.com/*"],
-    "js": ["scriptinjector.js"]
+    "js": ["scripts/scriptinjector.js"]
   }],
   "web_accessible_resources": [
-    "contentscript.js"
+    "styles/options.css",
+    "scripts/contentscript.js"
   ],
   "options_ui": {
     "page": "options.html",
     "chrome_style": false
   },
   "permissions": [
-    "https://www.youtube.com/*"
+    "https://www.youtube.com/*",
+    "storage"
   ]
 }

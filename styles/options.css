@@ -1,0 +1,107 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+html {
+  background: #1f1f1f;
+  font-family: "YouTube Noto", Roboto, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+body { 
+  width: 400px;
+  color: #fff;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+main {
+  padding: 5px;
+}
+
+h1 {
+  margin: 0 0 15px;
+  font-size: 18px;
+  color: #f22;
+}
+
+h2 {
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+
+a {
+  color: #f22;
+  font-weight: bold;
+}
+
+hr {
+  margin: 15px 0;
+  border: none;
+  border-top: 2px solid #666;
+}
+
+.tooltip {
+  color: #faa;
+  cursor: help;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 -15px;
+  padding: 0 15px;
+  font-size: 13px;
+  font-weight: 500;
+  user-select: none;
+}
+.label--checkbox {
+  padding: 5px 15px;
+  cursor: pointer;
+}
+.label--checkbox:hover {
+  background: rgba(255,255,255,.15);
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+.checkbox-switch {
+  height: 14px;
+  width: 36px;
+  position: relative;
+  margin: 3px 0;
+  border-radius: 14px;
+  background: #ffffff4d;
+  transition: all .08s cubic-bezier(0.4,0.0,1,1);
+}
+input[type="checkbox"]:checked + .checkbox-switch {
+  background: #f00;
+}
+.checkbox-switch:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  margin-top: -3px;
+  background-color: #bdbdbd;
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.6);
+  transition: all .08s cubic-bezier(0.4,0.0,1,1);
+}
+input[type="checkbox"]:checked + .checkbox-switch:after {
+  background-color: #fff;
+  transform: translateX(16px);
+}
+input[type="text"] {
+  width: 100px;
+  background: none;
+  outline: none;
+  border: 1px solid #ddd;
+  margin: 2px 0;
+  padding: 5px 4px;
+  color: inherit;
+}

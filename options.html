@@ -1,26 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>YouTube Ambilight settings</title>
+  <title>Remember YouTube subtitle settings</title>
   <link rel="stylesheet" href="styles/options.css">
 </head>
 
 <body>
-  <h1>YouTube Ambilight</h1>
-  The settings are accessible from the YouTube video player.<br/><br/>
-  <img src="images/settings-moved-to.png" />
+  <main>
+    <h1>Remember YouTube subtitle settings</h1>
+    <p>
+      This extension automatically remembers the subtitle language selected last time or in the settings below.
+    </p>
+    <hr/>
 
-  <h2 class="important">I see no settings button after installation!</h2>
-  Please click on the refresh button in the browser or press the F5 shortkey.
-  <br/><br/>
-  If after the refresh the Ambilight settings button is still not shown you can create an issue on the 
-  <a href="https://github.com/WesselKroos/youtube-ambilight/issues" target="_blank">issues list</a>
-  and I'll respond within 24 hours on workdays.
-  Alternatively if you have no GitHub account leave your feedback via 
-  <a href="https://docs.google.com/forms/d/1OU7e3fOXk2NJSppCj4hrAE0lUgi8utccdooX1rUnycU" target="_blank">the Feedback form</a>
+    <h2>Preferences</h2>
+    <label>
+      <div>Preferred languages:</div>
+      <input type="text" name="preferredLanguageCodes" placeholder='e.g.: "en fr sp"'>
+    </label>
+    <label class="label--checkbox">
+      <div>Update preferred languages on manual selection</div>
+      <input type="checkbox" name="updatePreferredLanguageCodesOnManualSelection">
+      <div class="checkbox-switch"></div>
+    </label>
+    <hr/>
 
-  <h2>Why do I see no Ambilight settings button after installation?</h2>
-  The extension is not loaded on YouTube webpages that were already open before the installation. 
-  So please click on the refresh button in the browser or press the F5 shortkey to load the extension.
+    <h2>Auto-enable</h2>
+    <label class="label--checkbox">
+      <div>Auto-enable</div>
+      <input type="checkbox" name="autoEnable">
+      <div class="checkbox-switch"></div>
+    </label>
+    <label class="label--checkbox">
+      <div>
+        Except if 
+        <span 
+          class="tooltip" 
+          title="This is based on the language of the auto-generated subtitle.
+Some videos do not have this subtitle option.
+In that case the subtitle is auto-enabled."
+        >
+          spoken*
+        </span>
+        in a preferred language
+      </div>
+      <input type="checkbox" name="autoEnableExceptOnVideoInPreferredLanguage">
+      <div class="checkbox-switch"></div>
+    </label>
+    <label class="label">
+      <div>
+        Except if
+        <span 
+          class="tooltip" 
+          title="This is based on the language of the auto-generated subtitle.
+Some videos do not have this subtitle option.
+In that case the subtitle is auto-enabled."
+        >
+          spoken*
+        </span>
+        in the languages:
+      </div>
+      <input type="text" name="autoEnableExceptOnVideoInLanguageCodes" placeholder='e.g.: "en fr sp"'>
+    </label>
+    <hr/>
+
+    <h2>Translations</h2>
+    <label class="label--checkbox">
+      <div>Show auto-generated subtitle</div>
+      <input type="checkbox" name="showGeneratedCaption">
+      <div class="checkbox-switch"></div>
+    </label>
+    <label class="label--checkbox">
+      <div>Auto-translate subtitle</div>
+      <input type="checkbox" name="showTranslatedCaption">
+      <div class="checkbox-switch"></div>
+    </label>
+      
+  </main>
+  <script src="scripts/options.js"></script>
 </body>
 </html>
