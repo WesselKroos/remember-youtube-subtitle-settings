@@ -270,33 +270,22 @@
     setTimeout(setCaption, 1);
   });
 
-  let videoUrl;
-  const init = (videoElem) => {
-    videoElem.addEventListener('loadeddata', () => {
-      // console.log('playing', videoUrl, window.location.href);
-      if (videoUrl === window.location.href) return;
+  const init = () => {
+    const navigationManager = document.querySelector('yt-navigation-manager');
+    if(!navigationManager) return;
 
-      videoUrl = window.location.href;
-
+    const isWatchPageUrl = () => (location.pathname === '/watch');
+    const onPageNavigationFinished = (e) => {
+      if (!isWatchPageUrl()) return;
       if(!settings.autoEnable) return;
-      // console.log('setCaption');
+
       setCaption(true);
-    });
+    }
+    navigationManager.addEventListener('yt-navigate-finish', onPageNavigationFinished);
+    document.removeEventListener('readystatechange', init);
+    if(!settings.autoEnable) return;
+  
     setCaption(true);
   };
-
-  const observer = new MutationObserver((mutationsList, observer) => {
-    if (document.querySelector('ytd-app:not([is-watch-page])')) return;
-    const videoElem = document.querySelector('ytd-watch-flexy video');
-    if (!videoElem) return;
-
-    observer.disconnect();
-    init(videoElem);
-  });
-  var appElem = document.querySelector('ytd-app, body[data-spf-name]')
-  if (!appElem) return
-  observer.observe(appElem, {
-    childList: true,
-    subtree: true
-  });
+  document.addEventListener('readystatechange', init);
 })()
