@@ -287,5 +287,10 @@
   
     setCaption(true);
   };
-  document.addEventListener('readystatechange', init);
+
+  if(document.readyState === 'complete') {
+    init();
+  } else {
+    document.addEventListener('readystatechange', init);
+  }
 })()
