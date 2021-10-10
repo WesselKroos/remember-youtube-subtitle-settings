@@ -1,4 +1,22 @@
 (function () {
+  
+  const waitForDomElement = (check, containerSelector, callback) => {
+    if (check()) {
+      callback()
+    } else {
+      const observer = new MutationObserver((mutationsList, observer) => {
+        if (!check()) return
+        observer.disconnect()
+        callback()
+      })
+      observer.observe(document.querySelector(containerSelector), {
+        childList: true,
+        subtree: true
+      })
+      return observer
+    }
+  }
+
   const getYouTubeHostLanguageCode = () => {
     const cookies = document.cookie
       .split('; ')
@@ -271,21 +289,26 @@
   });
 
   const init = () => {
-    const navigationManager = document.querySelector('yt-navigation-manager');
-    if(!navigationManager) return;
+    waitForDomElement(() => document.querySelector('yt-navigation-manager'), 'ytd-app', () => {
+      const navigationManager = document.querySelector('yt-navigation-manager');
+      if(!navigationManager) {
+        console.warn('no yt-navigation-manager on the page');
+        return;
+      }
 
-    const isWatchPageUrl = () => (location.pathname === '/watch');
-    const onPageNavigationFinished = (e) => {
-      if (!isWatchPageUrl()) return;
+      const isWatchPageUrl = () => (location.pathname === '/watch');
+      const onPageNavigationFinished = (e) => {
+        if (!isWatchPageUrl()) return;
+        if(!settings.autoEnable) return;
+
+        setCaption(true);
+      }
+      navigationManager.addEventListener('yt-navigate-finish', onPageNavigationFinished);
+      document.removeEventListener('readystatechange', init);
       if(!settings.autoEnable) return;
-
+    
       setCaption(true);
-    }
-    navigationManager.addEventListener('yt-navigate-finish', onPageNavigationFinished);
-    document.removeEventListener('readystatechange', init);
-    if(!settings.autoEnable) return;
-  
-    setCaption(true);
+    });
   };
 
   if(document.readyState === 'complete') {
