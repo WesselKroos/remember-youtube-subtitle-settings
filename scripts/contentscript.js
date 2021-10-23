@@ -26,9 +26,7 @@
         return list
       }, []);
     const params = new URLSearchParams(cookies.PREF || '');
-    const hostLanguage = params.get('hl') || '';
-    const languageCode = hostLanguage.substr(0, 2);
-    return languageCode;
+    return params.get('hl') || '';
   };
 
   // const additionalPreferredLanguageCodes = [];
@@ -147,9 +145,9 @@
       if (
         videoLanguage && (
           (settings.autoEnableExceptOnVideoInPreferredLanguage && (
-            settings.preferredLanguageCodes.includes(videoLanguage?.languageCode?.substr(0, 2))
+            settings.preferredLanguageCodes.find(plc => plc.startsWith(videoLanguage?.languageCode))
           )) ||
-          settings.autoEnableExceptOnVideoInLanguageCodes.includes(videoLanguage?.languageCode?.substr(0, 2))
+          settings.autoEnableExceptOnVideoInLanguageCodes.find(plc => plc.startsWith(videoLanguage?.languageCode))
         )
       ) {
         if (allowTurnOff)
@@ -161,9 +159,9 @@
       const currentLanguage = player.getOption('captions', 'track');
       // console.log('currentLanguage', currentLanguage);
       if (
-        settings.preferredLanguageCodes.includes(currentLanguage?.translationLanguage?.languageCode?.substr(0, 2)) ||
+        settings.preferredLanguageCodes.find(plc => plc.startsWith(currentLanguage?.translationLanguage?.languageCode)) ||
         (
-          settings.preferredLanguageCodes.includes(currentLanguage?.languageCode?.substr(0, 2)) &&
+          settings.preferredLanguageCodes.find(plc => plc.startsWith(currentLanguage?.languageCode)) &&
           !currentLanguage?.translationLanguage
         )
       ) {
@@ -174,7 +172,7 @@
       let language = settings.preferredLanguageCodes
         .map(languageCode =>
           languages.find(language => (
-            languageCode === language?.languageCode?.substr(0, 2) &&
+            languageCode.startsWith(language?.languageCode) &&
             (settings.showGeneratedCaption || language.kind !== 'asr')
           ))
         )
@@ -197,10 +195,8 @@
           // List available caption translations
           const translationLanguages = player.getOption('captions', 'translationLanguages') || [];
           const translationLanguage = settings.preferredLanguageCodes
-            .map(languageCode =>
-              translationLanguages.find(language =>
-                languageCode === language?.languageCode?.substr(0, 2)
-              )
+            .map(preferredLanguageCode =>
+              translationLanguages.find(tl => preferredLanguageCode === tl?.languageCode)
             )
             .find(language => language);
 
@@ -255,7 +251,8 @@
     if (language?.translationLanguage) {
       language = language.translationLanguage;
     }
-    return language?.languageCode?.substr(0, 2);
+    // console.log(language)
+    return language?.languageCode;
   }
 
   document.addEventListener('mouseup', e => {
@@ -267,7 +264,11 @@
       setTimeout(() => {
         const currentLanguageCode = getPlayerCaptionLanguageCode();
         if (currentLanguageCode !== previousLanguageCode) {
-          setSetting('preferredLanguageCodes', [currentLanguageCode]);
+          const plc = [currentLanguageCode];
+          if(currentLanguageCode.includes('-')) {
+            plc.push(currentLanguageCode.split('-')[0])
+          }
+          setSetting('preferredLanguageCodes', plc);
           // localStorage.setItem('youtube-subtitles.preferred-language', currentLanguageCode);
           // console.log('Language changed from', previousLanguageCode, 'to', currentLanguageCode);
         }
