@@ -170,9 +170,9 @@
       }
 
       let language = settings.preferredLanguageCodes
-        .map(languageCode =>
+        .map(preferredLanguageCode =>
           languages.find(language => (
-            languageCode.startsWith(language?.languageCode) &&
+            language?.languageCode?.startsWith(preferredLanguageCode) &&
             (settings.showGeneratedCaption || language.kind !== 'asr')
           ))
         )
