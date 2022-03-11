@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Remember subtitle settings for YouTube™",
   "description": "Set and forget. No need to re-select your subtitle language anymore.",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Wessel Kroos",
   "icons": {
     "16": "images/icon-16.png",
