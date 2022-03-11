@@ -31,7 +31,6 @@
     "chrome_style": false
   },
   "permissions": [
-    "https://www.youtube.com/*",
     "storage"
   ]
 }
