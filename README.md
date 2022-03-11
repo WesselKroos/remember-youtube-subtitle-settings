@@ -1,4 +1,4 @@
-# Remember YouTube subtitle settings
+# Remember subtitle settings for YouTube™
 
 Set and forget. No need to re-select your subtitle language anymore.
 
