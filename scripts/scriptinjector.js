@@ -44,7 +44,7 @@ const postSettings = () => {
   }
 
   const scripts = [
-    chrome.extension.getURL('scripts/contentscript.js')
+    chrome.runtime.getURL('scripts/contentscript.js')
   ]
   scripts.forEach((path) => {
     const s = document.createElement('script')

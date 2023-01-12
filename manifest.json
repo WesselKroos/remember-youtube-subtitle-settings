@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Remember subtitle settings for YouTube™",
   "description": "Set and forget. No need to re-select your subtitle language anymore.",
   "version": "1.0.6",
@@ -10,25 +10,27 @@
     "48": "images/icon-48.png",
     "128": "images/icon-128.png"
   },
-  "browser_action": {
+  "action": {
     "default_icon": "images/icon-19.png",
     "default_popup": "options.html"
   },
   "background" : {
-    "scripts" : ["scripts/background.js"],
-    "persistent": false
+    "service_worker" : "scripts/background.js"
   },
   "content_scripts": [{
     "matches": ["https://www.youtube.com/*"],
     "js": ["scripts/scriptinjector.js"]
   }],
-  "web_accessible_resources": [
-    "styles/options.css",
-    "scripts/contentscript.js"
-  ],
+  "web_accessible_resources":  [{
+    "resources": [
+      "styles/options.css",
+      "scripts/contentscript.js"
+    ],
+    "matches": ["https://www.youtube.com/*"]
+  }],
   "options_ui": {
     "page": "options.html",
-    "chrome_style": false
+    "open_in_tab": false
   },
   "permissions": [
     "storage"
