@@ -258,7 +258,7 @@
   document.addEventListener('mouseup', e => {
     if(!settings.updatePreferredLanguageCodesOnManualSelection) return;
 
-    const menuitem = e.path.find(el => el?.classList?.contains('ytp-menuitem'));
+    const menuitem = e.composedPath().find(el => el?.classList?.contains('ytp-menuitem'));
     if (menuitem) {
       const previousLanguageCode = getPlayerCaptionLanguageCode();
       setTimeout(() => {
