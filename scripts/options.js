@@ -22,6 +22,7 @@ const settings = {
   autoEnableExceptOnVideoInLanguageCodes: [],
   showGeneratedCaption: true,
   showTranslatedCaption: true,
+  retainPosition: false
 };
 const updateInputs = () => {
   Object.keys(settings).forEach(async name => {

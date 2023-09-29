@@ -24,6 +24,8 @@ let settings = {
   autoEnableExceptOnVideoInLanguageCodes: [],
   showGeneratedCaption: true,
   showTranslatedCaption: true,
+  retainPosition: false,
+  positionStyle: ''
 };
 
 const postSettings = () => {
